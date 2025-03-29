@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-white1 {
+  background: #e10700;
+}
+.bg-black1 {
+  background: #fff;
+}
+.text-white1 {
+  color: #000;
+}
+.text-black1 {
+  color: #fff;
+}
+.bg-white {
+  background: #fff;
+}
+.bg-black {
+  background: #000;
+}
+.bg-red {
+  background: #e10700;
+}
+.bg-grey {
+  background: #f3f3f3;
+}
+.color-red {
+  color: #e10700;
+}
+.btn-f1 {
+  color: #e10700;
+  border: 2px solid #e10700;
+  border-radius: 6px;
+  height: 34px;
+  line-height: 31px;
+  width: 180px;
+  text-align: center;
+  cursor: pointer;
+}
+.btn-f1.active {
+  background: #e10700;
+  color: #fff;
+}
+.p-normal {
+  padding: 1.25rem;
+}
