@@ -21,10 +21,9 @@ function TeamStandings({ standings }) {
             </thead>
             <tbody>
                 {teamStandings.map((team, index) => (
-                    <tr key={index} className={index % 2 == 0 ? "bg-white" : "bg-grey"}>
+                    <tr key={index} className={index % 2 === 0 ? "bg-white" : "bg-grey"}>
                         <td className="p-normal">{index + 1}</td>
                         <td className="p-normal">{team.name}</td>
-                        <td className="p-normal">{team.team}</td>
                         <td className="p-normal">{team.pts}</td>
                     </tr>
                 ))}

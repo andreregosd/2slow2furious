@@ -29,6 +29,18 @@
 .color-red {
   color: #e10700;
 }
+.team-mclaren {
+  border-right: 6px solid #ff8000;
+}
+.team-redbull {
+  border-right: 6px solid #3672c6;
+}
+.team-ferrari {
+  border-right: 6px solid #e8002e;
+}
+.color-grey {
+  color: #888;
+}
 .btn-f1 {
   color: #e10700;
   border: 2px solid #e10700;
@@ -39,10 +51,72 @@
   text-align: center;
   cursor: pointer;
 }
-.btn-f1.active {
-  background: #e10700;
-  color: #fff;
-}
 .p-normal {
   padding: 1.25rem;
 }
+.mobile-menu ul li a {
+  border-bottom: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-bottom-right-radius: 8px;
+}
+.sm-btn-f1 {
+  color: #e10700;
+  border: 2px solid #e10700;
+  border-radius: 6px;
+  height: 30px;
+  line-height: 28px;
+  width: 120px;
+  text-align: center;
+  cursor: pointer;
+}
+.sm-btn-f1.active {
+  background: #e10700;
+  color: #fff;
+}
+@layer components {
+  .btn-f1 {
+    color: #e10700;
+    border: 2px solid #e10700;
+    border-radius: 6px;
+    height: 34px;
+    line-height: 31px;
+    width: 180px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .btn-f1.active {
+    background: #e10700;
+    color: #fff;
+  }
+
+  @screen lg {
+    .lg\:btn-f1 {
+      @apply btn-f1;
+    }
+  }
+}
+
+@media (max-height: 500px) {
+  .featured-title {
+    margin-top: 2rem;
+  }
+}
+@media (max-width: 1200px) {
+  .featured-title {
+    margin-top: 2rem;
+  }
+}
+/*
+.featured-content-container {
+  position: relative;
+}
+.featured-content-container:before {
+  background: #111;
+  margin-left: -10px;
+  height: 200px;
+  width: 200px;
+  margin-top: -10px;
+  content: " ";
+  position: absolute;
+}
+*/
