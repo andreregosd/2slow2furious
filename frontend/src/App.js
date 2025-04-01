@@ -59,10 +59,10 @@ function App() {
 
     return (
         <div className="text-white h-screen flex flex-col font-f1">
-            <nav className="bg-red h-20">
-              <div className="xl:max-w-screen-xl max-w-screen-lg flex flex-wrap items-center justify-between mx-auto p-6">
+            <nav className="bg-red sm:h-20 h-14">
+              <div className="xl:max-w-screen-xl max-w-screen-lg flex flex-wrap items-center justify-between mx-auto sm:p-6 p-4">
                 <a onClick={() => setActiveSection('home')} className="cursor-pointer flex items-center space-x-3 rtl:space-x-reverse">
-                    <img src={logo} className="h-8" alt="Logo" />
+                    <img src={logo} className="sm:h-8 h-6" alt="Logo" />
                     <span className="hidden self-center text-2xl font-semibold whitespace-nowrap">Lentos e calmos</span>
                 </a>
                 <button type="button md:hidden" onClick={() => setOpened(!opened)}>

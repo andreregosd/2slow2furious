@@ -19,8 +19,8 @@ function RacesPage({ allResults }) {
                 {activeTab === 'lap' && <LapResults lapResults={allResults[activeGP].lapResults} />}
                 {activeTab === 'total' && <Standings standings={allResults[activeGP].totalResults} />}
                 <div className="buttons-container w-full mt-4">
-                    {activeGP > 0 && <div className="btn-f1 inline-block mx-1 float-left" onClick={() => setActiveGP(activeGP - 1)}>Próximo GP</div>}
-                    {activeGP + 1 < allResults.length && <div className="btn-f1 inline-block mx-1 float-right" onClick={() => setActiveGP(activeGP + 1)}>GP anterior</div>}
+                    {activeGP > 0 && <div className="lg:btn-f1 sm-btn-f1 inline-block mx-1 float-left" onClick={() => setActiveGP(activeGP - 1)}>Próximo GP</div>}
+                    {activeGP + 1 < allResults.length && <div className="lg:btn-f1 sm-btn-f1 inline-block mx-1 float-right" onClick={() => setActiveGP(activeGP + 1)}>GP anterior</div>}
                 </div>
             </div>
         </div>
