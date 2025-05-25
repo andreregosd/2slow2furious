@@ -38,12 +38,12 @@ function App() {
             { rank : 6, name : "André", team: "Red Bull", teamColor: "redbull", avg : 31.655, laps: 39 },
           ],
           lapResults : [
-            { rank : 1, name : "Bruno", team: "Red Bull", teamColor: "redbull", time : 26.590 },
-            { rank : 2, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", time : 26.815 },
-            { rank : 3, name : "André", team: "Red Bull", teamColor: "redbull", time : 27.094 },
-            { rank : 4, name : "Ruben", team: "McLaren", teamColor: "mclaren", time : 27.147 },
-            { rank : 5, name : "Alex", team: "Ferrari", teamColor: "ferrari", time : 27.175 },
-            { rank : 6, name : "Dany", team: "Ferrari", teamColor: "ferrari", time : 27.436 },
+            { rank : 1, name : "Bruno", team: "Red Bull", teamColor: "redbull", time : 27.665 },
+            { rank : 2, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", time : 28.023 },
+            { rank : 3, name : "André", team: "Red Bull", teamColor: "redbull", time : 28.082 },
+            { rank : 4, name : "Ruben", team: "McLaren", teamColor: "mclaren", time : 28.116 },
+            { rank : 5, name : "Alex", team: "Ferrari", teamColor: "ferrari", time : 28.306 },
+            { rank : 6, name : "Dany", team: "Ferrari", teamColor: "ferrari", time : 28.828 },
           ],
           totalResults : [
             { rank : 1, name : "Bruno", team: "Red Bull", teamColor: "redbull", pts : 13 },
