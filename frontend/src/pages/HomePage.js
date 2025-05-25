@@ -2,12 +2,12 @@ function HomePage({ allResults, setActiveSection }) {
     return (
         <div className='content flex-1 bg-black grid content-center'>
             <div className='featured-content-container xl:max-w-screen-xl max-w-screen-md h-full mx-auto px-5'>
-                <h2 className="featured-title font-bold text-4xl uppercase pb-10">GP Fafe Indoor</h2>
+                <h2 className="featured-title font-bold text-4xl uppercase pb-10">GP Famalicão</h2>
                 <div className="featured-content w-full pb-10 xl:flex xl:flex-row xl:items-top">
                     <div className="race-resume xl:w-3/5 pr-5">
-                        <h3 className="text-xl font-bold mb-2">André faz a dobradinha na estreia</h3>
-                        <p>Após um início difícil, André faz uma corrida de recuperação e arrecada a primeira vitória da época. Aos 8 pontos da corrida, junta ainda os 8 pontos da volta mais rápida. Início perfeito para este formidável piloto.</p> 
-                        <p>Ribeiro, inconsolado, ainda não parou de chorar.</p>
+                        <h3 className="text-xl font-bold mb-2">Bruno é o vencedor do dia</h3>
+                        <p>Alex ganha a corrida e Bruno faz a melhor volta. Estes resultados equilibram o campeonato, que agora tem uma liderança partilhada entre André e Ribeiro, com 23 pontos.</p> 
+                        <p>O campeonato está ao rubro!</p>
                     </div>
                     <div className="all-results xl:w-2/5 xl:text-left text-center xl:pl-10 mt-8 xl:mt-0">
                         <div className="race-results mx-auto mb-2 inline-block xl:block">

@@ -14,17 +14,46 @@ function App() {
 
     useEffect(() => {
       setStandings([
-        { rank : 1, name : "André", team: "Red Bull", teamColor: "redbull", pts : 16 },
-        { rank : 2, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", pts : 11 },
-        { rank : 3, name : "Alex", team: "Ferrari", teamColor: "ferrari", pts : 9 },
-        { rank : 4, name : "Ruben", team: "McLaren", teamColor: "mclaren", pts : 8 },
-        { rank : 5, name : "Bruno", team: "Red Bull", teamColor: "redbull", pts : 6 },
-        { rank : 6, name : "Dany", team: "Ferrari", teamColor: "ferrari", pts : 6 },
+        { rank : 1, name : "André", team: "Red Bull", teamColor: "redbull", pts : 23 },
+        { rank : 2, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", pts : 23 },
+        { rank : 3, name : "Alex", team: "Ferrari", teamColor: "ferrari", pts : 20 },
+        { rank : 4, name : "Bruno", team: "Red Bull", teamColor: "redbull", pts : 19 },
+        { rank : 5, name : "Ruben", team: "McLaren", teamColor: "mclaren", pts : 16 },
+        { rank : 6, name : "Dany", team: "Ferrari", teamColor: "ferrari", pts : 11 },
       ]);
     }, []);
 
     useEffect(() => {
       setAllResults([
+        {
+          gp : "GP Famalicão",
+          season : "2025",
+          date : "24 Maio",
+          raceResults : [
+            { rank : 1, name : "Alex", team: "Ferrari", teamColor: "ferrari", avg : 29.857, laps: 40 },
+            { rank : 2, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", avg : 30.104, laps: 39 },
+            { rank : 3, name : "Bruno", team: "Red Bull", teamColor: "redbull", avg : 31.003, laps: 39 },
+            { rank : 4, name : "Ruben", team: "McLaren", teamColor: "mclaren", avg : 31.390, laps: 39 },
+            { rank : 5, name : "Dany", team: "Ferrari", teamColor: "ferrari", avg : 31.406, laps: 39 },
+            { rank : 6, name : "André", team: "Red Bull", teamColor: "redbull", avg : 31.655, laps: 39 },
+          ],
+          lapResults : [
+            { rank : 1, name : "Bruno", team: "Red Bull", teamColor: "redbull", time : 26.590 },
+            { rank : 2, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", time : 26.815 },
+            { rank : 3, name : "André", team: "Red Bull", teamColor: "redbull", time : 27.094 },
+            { rank : 4, name : "Ruben", team: "McLaren", teamColor: "mclaren", time : 27.147 },
+            { rank : 5, name : "Alex", team: "Ferrari", teamColor: "ferrari", time : 27.175 },
+            { rank : 6, name : "Dany", team: "Ferrari", teamColor: "ferrari", time : 27.436 },
+          ],
+          totalResults : [
+            { rank : 1, name : "Bruno", team: "Red Bull", teamColor: "redbull", pts : 13 },
+            { rank : 2, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", pts : 12 },
+            { rank : 3, name : "Alex", team: "Ferrari", teamColor: "ferrari", pts : 11 },
+            { rank : 4, name : "Ruben", team: "McLaren", teamColor: "mclaren", pts : 8 },
+            { rank : 5, name : "André", team: "Red Bull", teamColor: "redbull", pts : 7 },
+            { rank : 6, name : "Dany", team: "Ferrari", teamColor: "ferrari", pts : 5 }
+          ]
+        },
         {
           gp : "GP Fafe Indoor",
           season : "2025",
