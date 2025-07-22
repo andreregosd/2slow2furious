@@ -1,5 +1,6 @@
-const { Pool } = require('pg');
-const dotenv = require('dotenv');
+import pkg from 'pg';
+const { Pool } = pkg;
+import dotenv from 'dotenv';
 
 // Initialize environment variables
 dotenv.config();
@@ -12,4 +13,4 @@ const pool = new Pool({
   port: process.env.PG_PORT,
 });
 
-module.exports = pool;
+export default pool;

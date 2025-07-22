@@ -1,12 +1,13 @@
-// Import dependencies
-const express = require('express');
-const cors = require('cors');
-const dotenv = require('dotenv');
+import express from "express";
+import cors from "cors";
 
-const pool = require('./db');
-
-// Initialize environment variables
-dotenv.config();
+import seasonsController from "./controllers/seasonsController.js";
+import driversController from "./controllers/driversController.js";
+import teamsController from "./controllers/teamsController.js";
+import racesController from "./controllers/racesController.js";
+import resultsController from "./controllers/resultsController.js";
+import standingsController from "./controllers/standingsController.js";
+import scoreboardsController from "./controllers/scoreboardsController.js";
 
 // Create an Express app
 const app = express();
@@ -15,17 +16,27 @@ const app = express();
 app.use(cors());
 app.use(express.json()); // To parse JSON bodies
 
-// Api endpoint example
-app.get('/getTeams', async (req, res) => {
-    try {
-        const teams = await pool.query(`
-            SELECT * FROM "Teams";
-        `);
-        res.json(teams.rows);
-    } catch (err) {
-        console.error('Error executing query. Error: ', err.message);
-        res.status(500).send('Error retrieving teams');
-    }
+// Controllers
+app.use("/api/seasons", seasonsController);
+app.use("/api/drivers", driversController);
+app.use("/api/teams", teamsController);
+app.use("/api/races", racesController);
+app.use("/api/results", resultsController);
+app.use("/api/standings", standingsController);
+app.use("/api/scoreboards", scoreboardsController);
+
+// Global error handler
+app.use((err, req, res, next) => {
+    console.error('Unhandled error:', err.message);
+    res.status(500).send('Internal Server Error');
+});
+
+// Process-level error handling
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception thrown:', err);
 });
 
 // Start the server
