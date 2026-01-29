@@ -13,8 +13,9 @@ standingsController.get('/:season_id', async (req, res) => {
         const standings = await pool.query(`
             SELECT row_number() OVER() AS rank, d.name AS name, t.name AS team, t.color AS teamColor, s.points AS pts FROM "Standings" s
             JOIN "Drivers" d ON s.driver_id = d.id
-            JOIN "Teams" t ON t.id = d.team_id 
-            WHERE "season_id" = $1 ORDER BY "points" DESC;
+            JOIN "DriversTeams" dt ON d.id = dt.driver_id AND s.season_id = dt.season_id
+            JOIN "Teams" t ON t.id = dt.team_id 
+            WHERE s.season_id = $1 ORDER BY "points" DESC;
         `, [season_id]);
 
         res.status(200).json(standings.rows);

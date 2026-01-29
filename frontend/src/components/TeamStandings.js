@@ -5,7 +5,8 @@ function TeamStandings({ standings }) {
         if (!teams[standings[i].team]) {
             teams[standings[i].team] = { name: standings[i].team, pts: 0 };
         }
-        teams[standings[i].team].pts += standings[i].pts;
+
+        teams[standings[i].team].pts += Number(standings[i].pts);
     }
     teamStandings = Object.values(teams);
     teamStandings.sort((a, b) => b.pts - a.pts);

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import HomePage from './pages/HomePage';
 import StandingsPage from './pages/StandingsPage';
 import RacesPage from './pages/RacesPage';
+import RulesPage from './pages/RulesPage';
 
 function App() {
     const [activeSection, setActiveSection] = useState('home');
@@ -12,78 +13,163 @@ function App() {
     const [allResults, setAllResults] = useState([]);
     const [standings, setStandings] = useState([]);
 
+    const getRaceResults = (apiResults) => {
+      return (apiResults ?? [])
+        .slice() // don't mutate original array
+        .sort((a, b) => Number(a.avg) - Number(b.avg))
+        .map((item, index) => ({
+          rank: index + 1,
+          name: item.driver,
+          team: item.team,
+          teamColor: item.team.toLowerCase().replace(/\s+/g, ""),
+          avg: Number(item.avg),
+          laps: Number(item.laps),
+        }));
+    }
+
+    const getLapResults = (apiResults) => {
+      return (apiResults ?? [])
+        .slice() // don't mutate original array
+        .sort((a, b) => Number(a.best_lap) - Number(b.best_lap))
+        .map((item, index) => ({
+          rank: index + 1,
+          name: item.driver,
+          team: item.team,
+          teamColor: item.team.toLowerCase().replace(/\s+/g, ""),
+          time: Number(item.best_lap)
+        }));
+    }
+
+    const getTotalResults = (apiResults) => {
+      return (apiResults ?? [])
+        .slice() // don't mutate original array
+        .sort((a, b) => Number(b.pts) - Number(a.pts))
+        .map((item, index) => ({
+          rank: index + 1,
+          name: item.driver,
+          team: item.team,
+          teamColor: item.team.toLowerCase().replace(/\s+/g, ""),
+          pts: Number(item.pts)
+        }));
+    }
+
     useEffect(() => {
-      setStandings([
-        { rank : 1, name : "André", team: "Red Bull", teamColor: "redbull", pts : 23 },
-        { rank : 2, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", pts : 23 },
-        { rank : 3, name : "Alex", team: "Ferrari", teamColor: "ferrari", pts : 20 },
-        { rank : 4, name : "Bruno", team: "Red Bull", teamColor: "redbull", pts : 19 },
-        { rank : 5, name : "Ruben", team: "McLaren", teamColor: "mclaren", pts : 16 },
-        { rank : 6, name : "Dany", team: "Ferrari", teamColor: "ferrari", pts : 11 },
-      ]);
+      async function loadStandings() {
+        try {
+          const res = await fetch("http://localhost:5000/api/standings/1", {
+            headers: {
+              "Accept": "application/json",
+            },
+          });
+
+          const data = await res.json();
+
+          setStandings(Array.isArray(data) ? data : []);
+        } catch (err) {
+          console.log(err);
+          console.log("Error calling /api/results/1");
+        }
+      }
+
+      loadStandings();
+
+      // setStandings([
+      //   { rank : 1, name : "André", team: "Red Bull", teamColor: "redbull", pts : 23 },
+      //   { rank : 2, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", pts : 23 },
+      //   { rank : 3, name : "Alex", team: "Ferrari", teamColor: "ferrari", pts : 20 },
+      //   { rank : 4, name : "Bruno", team: "Red Bull", teamColor: "redbull", pts : 19 },
+      //   { rank : 5, name : "Ruben", team: "McLaren", teamColor: "mclaren", pts : 16 },
+      //   { rank : 6, name : "Dany", team: "Ferrari", teamColor: "ferrari", pts : 11 },
+      // ]);
     }, []);
 
     useEffect(() => {
-      setAllResults([
-        {
-          gp : "GP Famalicão",
-          season : "2025",
-          date : "24 Maio",
-          raceResults : [
-            { rank : 1, name : "Alex", team: "Ferrari", teamColor: "ferrari", avg : 29.857, laps: 40 },
-            { rank : 2, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", avg : 30.104, laps: 39 },
-            { rank : 3, name : "Bruno", team: "Red Bull", teamColor: "redbull", avg : 31.003, laps: 39 },
-            { rank : 4, name : "Ruben", team: "McLaren", teamColor: "mclaren", avg : 31.390, laps: 39 },
-            { rank : 5, name : "Dany", team: "Ferrari", teamColor: "ferrari", avg : 31.406, laps: 39 },
-            { rank : 6, name : "André", team: "Red Bull", teamColor: "redbull", avg : 31.655, laps: 39 },
-          ],
-          lapResults : [
-            { rank : 1, name : "Bruno", team: "Red Bull", teamColor: "redbull", time : 27.665 },
-            { rank : 2, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", time : 28.023 },
-            { rank : 3, name : "André", team: "Red Bull", teamColor: "redbull", time : 28.082 },
-            { rank : 4, name : "Ruben", team: "McLaren", teamColor: "mclaren", time : 28.116 },
-            { rank : 5, name : "Alex", team: "Ferrari", teamColor: "ferrari", time : 28.306 },
-            { rank : 6, name : "Dany", team: "Ferrari", teamColor: "ferrari", time : 28.828 },
-          ],
-          totalResults : [
-            { rank : 1, name : "Bruno", team: "Red Bull", teamColor: "redbull", pts : 13 },
-            { rank : 2, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", pts : 12 },
-            { rank : 3, name : "Alex", team: "Ferrari", teamColor: "ferrari", pts : 11 },
-            { rank : 4, name : "Ruben", team: "McLaren", teamColor: "mclaren", pts : 8 },
-            { rank : 5, name : "André", team: "Red Bull", teamColor: "redbull", pts : 7 },
-            { rank : 6, name : "Dany", team: "Ferrari", teamColor: "ferrari", pts : 5 }
-          ]
-        },
-        {
-          gp : "GP Fafe Indoor",
-          season : "2025",
-          date : "23 Março",
-          raceResults : [
-            { rank : 1, name : "André", team: "Red Bull", teamColor: "redbull", avg : 30.354, laps: 39 },
-            { rank : 2, name : "Ruben", team: "McLaren", teamColor: "mclaren", avg : 31.061, laps: 38 },
-            { rank : 3, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", avg : 31.797, laps: 37 },
-            { rank : 4, name : "Alex", team: "Ferrari", teamColor: "ferrari", avg : 32.033, laps: 37 },
-            { rank : 5, name : "Bruno", team: "Red Bull", teamColor: "redbull", avg : 33.425, laps: 35 },
-            { rank : 6, name : "Dany", team: "Ferrari", teamColor: "ferrari", avg : 33.445, laps: 35 },
-          ],
-          lapResults : [
-            { rank : 1, name : "André", team: "Red Bull", teamColor: "redbull", time : 26.590 },
-            { rank : 2, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", time : 26.815 },
-            { rank : 3, name : "Alex", team: "Ferrari", teamColor: "ferrari", time : 27.094 },
-            { rank : 4, name : "Dany", team: "Ferrari", teamColor: "ferrari", time : 27.147 },
-            { rank : 5, name : "Bruno", team: "Red Bull", teamColor: "redbull", time : 27.175 },
-            { rank : 6, name : "Ruben", team: "McLaren", teamColor: "mclaren", time : 27.436 },
-          ],
-          totalResults : [
-            { rank : 1, name : "André", team: "Red Bull", teamColor: "redbull", pts : 16 },
-            { rank : 2, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", pts : 11 },
-            { rank : 3, name : "Alex", team: "Ferrari", teamColor: "ferrari", pts : 9 },
-            { rank : 4, name : "Ruben", team: "McLaren", teamColor: "mclaren", pts : 8 },
-            { rank : 5, name : "Bruno", team: "Red Bull", teamColor: "redbull", pts : 6 },
-            { rank : 6, name : "Dany", team: "Ferrari", teamColor: "ferrari", pts : 6 }
-          ]
+      async function loadResults() {
+        try {
+          const res = await fetch("http://localhost:5000/api/results/1", {
+            headers: {
+              "Accept": "application/json",
+            },
+          });
+
+          const data = await res.json();
+
+          //Transform data
+          for(let i = 0; i < data.length; i++) {
+            data[i].raceResults = getRaceResults(data[i].results);
+            data[i].lapResults = getLapResults(data[i].results);
+            data[i].totalResults = getTotalResults(data[i].results);
+          }
+
+          setAllResults(Array.isArray(data) ? data : []);
+        } catch (err) {
+          console.log(err);
+          console.log("Error calling /api/results/1");
         }
-      ]);
+      }
+
+      loadResults();
+
+      // setAllResults([
+      //   {
+      //     gp : "GP Famalicão",
+      //     season : "2025",
+      //     date : "24 Maio",
+      //     raceResults : [
+      //       { rank : 1, name : "Alex", team: "Ferrari", teamColor: "ferrari", avg : 29.857, laps: 40 },
+      //       { rank : 2, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", avg : 30.104, laps: 39 },
+      //       { rank : 3, name : "Bruno", team: "Red Bull", teamColor: "redbull", avg : 31.003, laps: 39 },
+      //       { rank : 4, name : "Ruben", team: "McLaren", teamColor: "mclaren", avg : 31.390, laps: 39 },
+      //       { rank : 5, name : "Dany", team: "Ferrari", teamColor: "ferrari", avg : 31.406, laps: 39 },
+      //       { rank : 6, name : "André", team: "Red Bull", teamColor: "redbull", avg : 31.655, laps: 39 },
+      //     ],
+      //     lapResults : [
+      //       { rank : 1, name : "Bruno", team: "Red Bull", teamColor: "redbull", time : 27.665 },
+      //       { rank : 2, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", time : 28.023 },
+      //       { rank : 3, name : "André", team: "Red Bull", teamColor: "redbull", time : 28.082 },
+      //       { rank : 4, name : "Ruben", team: "McLaren", teamColor: "mclaren", time : 28.116 },
+      //       { rank : 5, name : "Alex", team: "Ferrari", teamColor: "ferrari", time : 28.306 },
+      //       { rank : 6, name : "Dany", team: "Ferrari", teamColor: "ferrari", time : 28.828 },
+      //     ],
+      //     totalResults : [
+      //       { rank : 1, name : "Bruno", team: "Red Bull", teamColor: "redbull", pts : 13 },
+      //       { rank : 2, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", pts : 12 },
+      //       { rank : 3, name : "Alex", team: "Ferrari", teamColor: "ferrari", pts : 11 },
+      //       { rank : 4, name : "Ruben", team: "McLaren", teamColor: "mclaren", pts : 8 },
+      //       { rank : 5, name : "André", team: "Red Bull", teamColor: "redbull", pts : 7 },
+      //       { rank : 6, name : "Dany", team: "Ferrari", teamColor: "ferrari", pts : 5 }
+      //     ]
+      //   },
+      //   {
+      //     gp : "GP Fafe Indoor",
+      //     season : "2025",
+      //     date : "23 Março",
+      //     raceResults : [
+      //       { rank : 1, name : "André", team: "Red Bull", teamColor: "redbull", avg : 30.354, laps: 39 },
+      //       { rank : 2, name : "Ruben", team: "McLaren", teamColor: "mclaren", avg : 31.061, laps: 38 },
+      //       { rank : 3, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", avg : 31.797, laps: 37 },
+      //       { rank : 4, name : "Alex", team: "Ferrari", teamColor: "ferrari", avg : 32.033, laps: 37 },
+      //       { rank : 5, name : "Bruno", team: "Red Bull", teamColor: "redbull", avg : 33.425, laps: 35 },
+      //       { rank : 6, name : "Dany", team: "Ferrari", teamColor: "ferrari", avg : 33.445, laps: 35 },
+      //     ],
+      //     lapResults : [
+      //       { rank : 1, name : "André", team: "Red Bull", teamColor: "redbull", time : 26.590 },
+      //       { rank : 2, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", time : 26.815 },
+      //       { rank : 3, name : "Alex", team: "Ferrari", teamColor: "ferrari", time : 27.094 },
+      //       { rank : 4, name : "Dany", team: "Ferrari", teamColor: "ferrari", time : 27.147 },
+      //       { rank : 5, name : "Bruno", team: "Red Bull", teamColor: "redbull", time : 27.175 },
+      //       { rank : 6, name : "Ruben", team: "McLaren", teamColor: "mclaren", time : 27.436 },
+      //     ],
+      //     totalResults : [
+      //       { rank : 1, name : "André", team: "Red Bull", teamColor: "redbull", pts : 16 },
+      //       { rank : 2, name : "Ribeiro", team: "McLaren", teamColor: "mclaren", pts : 11 },
+      //       { rank : 3, name : "Alex", team: "Ferrari", teamColor: "ferrari", pts : 9 },
+      //       { rank : 4, name : "Ruben", team: "McLaren", teamColor: "mclaren", pts : 8 },
+      //       { rank : 5, name : "Bruno", team: "Red Bull", teamColor: "redbull", pts : 6 },
+      //       { rank : 6, name : "Dany", team: "Ferrari", teamColor: "ferrari", pts : 6 }
+      //     ]
+      //   }
+      // ]);
     }, []);
 
     return (
@@ -107,6 +193,9 @@ function App() {
                     <li>
                       <a onClick={() => {setOpened(false); setActiveSection('races')}} className="cursor-pointer block text-lg py-2 px-3 md:p-0">Corridas</a>
                     </li>
+                    <li>
+                      <a onClick={() => {setOpened(false); setActiveSection('rules')}} className="cursor-pointer block text-lg py-2 px-3 md:p-0">Regulamento</a>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -119,11 +208,15 @@ function App() {
                 <li className="px-6 py-2">
                   <a onClick={() => {setOpened(false); setActiveSection('races')}} className="cursor-pointer block text-lg px-1 py-1">Corridas</a>
                 </li>
+                <li className="px-6 py-2">
+                  <a onClick={() => {setOpened(false); setActiveSection('rules')}} className="cursor-pointer block text-lg px-1 py-1">Regulamento</a>
+                </li>
               </ul>
             </div>          
             {activeSection === 'home' && allResults.length > 0 && <HomePage allResults={allResults[0]} setActiveSection={setActiveSection} />}
             {activeSection === 'standings' && <StandingsPage standings={standings} />}
             {activeSection === 'races' && <RacesPage allResults={allResults} />}
+            {activeSection === 'rules' && <RulesPage />}
         </div>
     );
 }

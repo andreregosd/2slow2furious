@@ -48,11 +48,11 @@ driversController.get('/:season_id', async (req, res) => {
  */
 driversController.post('/', async (req, res) => {
     try {
-        const { name, team_id } = req.body;
+        const { name } = req.body;
 
         const result = await pool.query(`
-            INSERT INTO "Drivers" ("name", "team_id") VALUES ($1, $2) RETURNING id;
-        `, [name, team_id]);
+            INSERT INTO "Drivers" ("name") VALUES ($1) RETURNING id;
+        `, [name]);
 
         let driver_id = result.rows[0].id;
 
@@ -97,11 +97,11 @@ driversController.post('/addtoseason', async (req, res) => {
  */
 driversController.post('/addtoteam', async (req, res) => {
     try {
-        const { driver_id, team_id } = req.body;
+        const { season_id, driver_id, team_id } = req.body;
 
         const result = await pool.query(`
-            UPDATE "Drivers" SET "team_id" = $1 WHERE "driver_id" = $2;
-        `, [team_id, driver_id]);
+            INSERT INTO "DriversTeams" ("season_id", "driver_id", "team_id") VALUES ($1, $2, $3);
+        `, [season_id, driver_id, team_id]);
 
         res.status(200).json(SuccessResponse());
     } catch(err) {
