@@ -7,6 +7,7 @@ import RacesPage from './pages/RacesPage';
 import RulesPage from './pages/RulesPage';
 
 function App() {
+    let _season_id = 1;
     const [activeSection, setActiveSection] = useState('home');
     const [opened, setOpened] = useState(false);
 
@@ -56,7 +57,7 @@ function App() {
     useEffect(() => {
       async function loadStandings() {
         try {
-          const res = await fetch("http://localhost:5000/api/standings/1", {
+          const res = await fetch("http://2slow2furious-api.vercel.app/api/standings/" + _season_id, {
             headers: {
               "Accept": "application/json",
             },
@@ -67,7 +68,7 @@ function App() {
           setStandings(Array.isArray(data) ? data : []);
         } catch (err) {
           console.log(err);
-          console.log("Error calling /api/results/1");
+          console.log("Error calling /api/results/" + _season_id);
         }
       }
 
@@ -86,7 +87,7 @@ function App() {
     useEffect(() => {
       async function loadResults() {
         try {
-          const res = await fetch("http://localhost:5000/api/results/1", {
+          const res = await fetch("http://2slow2furious-api.vercel.app/api/results/" + _season_id, {
             headers: {
               "Accept": "application/json",
             },
@@ -104,7 +105,7 @@ function App() {
           setAllResults(Array.isArray(data) ? data : []);
         } catch (err) {
           console.log(err);
-          console.log("Error calling /api/results/1");
+          console.log("Error calling /api/results/" + _season_id);
         }
       }
 
