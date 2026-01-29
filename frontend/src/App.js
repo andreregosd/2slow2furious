@@ -57,7 +57,7 @@ function App() {
     useEffect(() => {
       async function loadStandings() {
         try {
-          const res = await fetch("http://2slow2furious-api.vercel.app/api/standings/" + _season_id, {
+          const res = await fetch("https://2slow2furious-api.vercel.app/api/standings/" + _season_id, {
             headers: {
               "Accept": "application/json",
             },
@@ -87,7 +87,7 @@ function App() {
     useEffect(() => {
       async function loadResults() {
         try {
-          const res = await fetch("http://2slow2furious-api.vercel.app/api/results/" + _season_id, {
+          const res = await fetch("https://2slow2furious-api.vercel.app/api/results/" + _season_id, {
             headers: {
               "Accept": "application/json",
             },
