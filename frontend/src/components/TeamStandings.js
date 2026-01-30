@@ -2,11 +2,15 @@ function TeamStandings({ standings }) {
     let teamStandings = [];
     let teams = {};
     for(let i = 0; i < standings.length; i++){
+        if(standings[i].team === '' || standings[i].team === null)
+            continue;
+
         if (!teams[standings[i].team]) {
             teams[standings[i].team] = { name: standings[i].team, pts: 0 };
         }
 
         teams[standings[i].team].pts += Number(standings[i].pts);
+        console.log(teams);
     }
     teamStandings = Object.values(teams);
     teamStandings.sort((a, b) => b.pts - a.pts);

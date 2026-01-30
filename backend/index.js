@@ -8,6 +8,7 @@ import racesController from "./controllers/racesController.js";
 import resultsController from "./controllers/resultsController.js";
 import standingsController from "./controllers/standingsController.js";
 import scoreboardsController from "./controllers/scoreboardsController.js";
+import postsController from "./controllers/postsController.js";
 
 // Create an Express app
 const app = express();
@@ -24,6 +25,7 @@ app.use("/api/races", racesController);
 app.use("/api/results", resultsController);
 app.use("/api/standings", standingsController);
 app.use("/api/scoreboards", scoreboardsController);
+app.use("/api/posts", postsController);
 
 // Global error handler
 app.use((err, req, res, next) => {

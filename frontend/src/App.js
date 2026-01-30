@@ -7,12 +7,16 @@ import RacesPage from './pages/RacesPage';
 import RulesPage from './pages/RulesPage';
 
 function App() {
-    let _season_id = 1;
+    let _season_id = 2;
+    let _apiURL = 'https://2slow2furious-api.vercel.app/';
+    //_apiURL = 'http://localhost:5000/';
+
     const [activeSection, setActiveSection] = useState('home');
     const [opened, setOpened] = useState(false);
 
     const [allResults, setAllResults] = useState([]);
     const [standings, setStandings] = useState([]);
+    const [post, setPost] = useState({});
 
     const getRaceResults = (apiResults) => {
       return (apiResults ?? [])
@@ -57,7 +61,7 @@ function App() {
     useEffect(() => {
       async function loadStandings() {
         try {
-          const res = await fetch("https://2slow2furious-api.vercel.app/api/standings/" + _season_id, {
+          const res = await fetch(_apiURL + "api/standings/" + _season_id, {
             headers: {
               "Accept": "application/json",
             },
@@ -87,7 +91,7 @@ function App() {
     useEffect(() => {
       async function loadResults() {
         try {
-          const res = await fetch("https://2slow2furious-api.vercel.app/api/results/" + _season_id, {
+          const res = await fetch(_apiURL + "api/results/" + _season_id, {
             headers: {
               "Accept": "application/json",
             },
@@ -172,6 +176,27 @@ function App() {
       //   }
       // ]);
     }, []);
+    
+    useEffect(() => {
+      async function loadLastPost() {
+        try {
+          const res = await fetch(_apiURL + "api/posts/last", {
+            headers: {
+              "Accept": "application/json",
+            },
+          });
+
+          const data = await res.json();
+
+          setPost(data);
+        } catch (err) {
+          console.log(err);
+          console.log("Error calling /api/posts/last");
+        }
+      }
+
+      loadLastPost();
+    }, []);
 
     return (
         <div className="text-white h-screen flex flex-col font-f1">
@@ -214,7 +239,7 @@ function App() {
                 </li>
               </ul>
             </div>          
-            {activeSection === 'home' && allResults.length > 0 && <HomePage allResults={allResults[0]} setActiveSection={setActiveSection} />}
+            {activeSection === 'home' && <HomePage allResults={allResults.length > 0 ? allResults[0] : {}} post={post} setActiveSection={setActiveSection} />}
             {activeSection === 'standings' && <StandingsPage standings={standings} />}
             {activeSection === 'races' && <RacesPage allResults={allResults} />}
             {activeSection === 'rules' && <RulesPage />}

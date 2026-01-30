@@ -1,6 +1,6 @@
 function Standings({ standings }) {
     return (
-        <table className="w-full text-black text-xs sm:text-base">
+        <table className="w-full text-black text-xs sm:text-base mb-10">
             <thead className="border border-grey-20 border-t-0 border-l-0 border-r-0">
                 <tr>
                     <th className="sm:p-5 p-2 text-left">Pos</th>
