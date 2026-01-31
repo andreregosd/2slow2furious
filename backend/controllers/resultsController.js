@@ -17,8 +17,8 @@ resultsController.get('/:season_id', async (req, res) => {
             JOIN "Races" r ON res.race_id = r.id
             JOIN "Seasons" s ON r.season_id = s.id
             JOIN "Drivers" d ON res.driver_id = d.id
-            JOIN "DriversTeams" dt ON d.id = dt.driver_id AND s.id = dt.season_id
-            JOIN "Teams" t ON dt.team_id = t.id
+            LEFT JOIN "DriversTeams" dt ON d.id = dt.driver_id AND s.id = dt.season_id
+            LEFT JOIN "Teams" t ON dt.team_id = t.id
             JOIN "ScoreboardsScores" score1 ON r.scoreboard_id = score1.scoreboard_id AND score1.position = res.rank
             JOIN (SELECT row_number() OVER(PARTITION BY "race_id" ORDER BY best_lap) AS best_lap_rank, race_id, driver_id FROM "RacesResults" ORDER BY best_lap) AS res2 ON res.race_id = res2.race_id AND res.driver_id = res2.driver_id 
             JOIN "ScoreboardsScores" score2 ON r.best_lap_scoreboard_id = score2.scoreboard_id AND score2.position = res2.best_lap_rank
@@ -73,7 +73,6 @@ resultsController.get('/:season_id', async (req, res) => {
  *      race_name : race_name,
  *      scoreboard_id : scoreboard_id,
  *      best_lap_scoreboard_id : best_lap_scoreboard_id,
- *      race_date : race_date
  *      results : [
  *          {
  *              driver_id : driver_id,
@@ -96,7 +95,7 @@ resultsController.post('/', async (req, res) => {
 
         // If no race_id, create the race with the given info
         if(!race_id) {
-            const { season_id, race_name, scoreboard_id, best_lap_scoreboard_id, race_date } = req.body;
+            const { season_id, race_name, scoreboard_id, best_lap_scoreboard_id } = req.body;
 
             const result = await client.query(`
                 INSERT INTO "Races" ("season_id", "name", "scoreboard_id", "best_lap_scoreboard_id", "race_date") 
