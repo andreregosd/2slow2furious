@@ -15,7 +15,7 @@ standingsController.get('/:season_id', async (req, res) => {
             JOIN "Drivers" d ON s.driver_id = d.id
             LEFT JOIN "DriversTeams" dt ON d.id = dt.driver_id AND s.season_id = dt.season_id
             LEFT JOIN "Teams" t ON t.id = dt.team_id 
-            WHERE s.season_id = $1 ORDER BY "rank" DESC;
+            WHERE s.season_id = $1 ORDER BY "rank" ASC;
         `, [season_id]);
 
         res.status(200).json(standings.rows);
