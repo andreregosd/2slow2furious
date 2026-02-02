@@ -26,7 +26,7 @@ function App() {
           rank: index + 1,
           name: item.driver,
           team: item.team,
-          teamColor: item.team.toLowerCase().replace(/\s+/g, ""),
+          teamColor: item.team === null ? "" : item.team.toLowerCase().replace(/\s+/g, ""),
           avg: Number(item.avg),
           laps: Number(item.laps),
         }));
@@ -40,7 +40,7 @@ function App() {
           rank: index + 1,
           name: item.driver,
           team: item.team,
-          teamColor: item.team.toLowerCase().replace(/\s+/g, ""),
+          teamColor: item.team === null ? "" : item.team.toLowerCase().replace(/\s+/g, ""),
           time: Number(item.best_lap)
         }));
     }
@@ -53,7 +53,7 @@ function App() {
           rank: index + 1,
           name: item.driver,
           team: item.team,
-          teamColor: item.team.toLowerCase().replace(/\s+/g, ""),
+          teamColor: item.team === null ? "" : item.team.toLowerCase().replace(/\s+/g, ""),
           pts: Number(item.pts)
         }));
     }
